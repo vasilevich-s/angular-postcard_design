@@ -1,0 +1,25 @@
+.workspace-control {
+  background-color: rgba(128, 128, 128, 0.226);
+  margin-left: 20px;
+  line-height: 12px;
+
+  input {
+    width: 0;
+    padding: 0;
+    visibility: hidden;
+  }
+
+  .mat-icon {
+    cursor: pointer;
+    padding: 5px;
+
+    &:hover {
+      outline: 1px solid #000;
+    }
+
+    &.selected {
+      background-color: lighten(rgba(128, 128, 128, 0.226), 80);
+      outline: 1px solid #000;
+    }
+  }
+}

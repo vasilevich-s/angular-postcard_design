@@ -1,0 +1,29 @@
+<div class="postcard">
+  <ng-container *ngIf="!workspaceVisible; else workspace">
+    <div (click)="optionsVisible = true" class="postcard-new" title="Create">
+      <mat-icon>add_circle_outline</mat-icon>
+    </div>
+
+    <div
+      *ngFor="let item of postcardService.savedDocuments"
+      (click)="loadDocument(item)"
+      class="postcard-new"
+      [ngStyle]="{
+        backgroundImage: item.stylesPostcard.backgroundImage,
+        backgroundColor: item.stylesPostcard.backgroundColor
+      }"
+    >
+      <p>{{ item.docName }}</p>
+    </div>
+  </ng-container>
+
+  <ng-template #workspace>
+    <app-workspace (back)="workspaceVisible = false"></app-workspace>
+  </ng-template>
+
+  <app-options
+    *ngIf="optionsVisible"
+    (hide)="optionsVisible = false"
+    (create)="createNewPostcard($event)"
+  ></app-options>
+</div>

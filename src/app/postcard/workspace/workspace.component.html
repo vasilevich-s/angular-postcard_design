@@ -1,0 +1,30 @@
+<div @workspace class="workspace">
+  <div class="workspace-header">
+    <button (click)="back.emit()" mat-mini-fab color="primary" title="Quit">
+      <mat-icon>reply</mat-icon>
+    </button>
+
+    <app-toolbar
+      [icons]="icons"
+      [colorText]="colorText"
+      (change)="changeStyle($event)"
+      (addBlock)="addBlock($event)"
+    >
+    </app-toolbar>
+  </div>
+
+  <div
+    class="workspace-main"
+    [ngStyle]="postcardService.stylesPostcard"
+    (click)="blurBlock()"
+  >
+    <ul class="workspace-content_list">
+      <app-content-block
+        *ngFor="let block of postcardService.contentBlocks"
+        [block]="block"
+        [select]="selectIdBlock === block.id"
+        (dblClick)="dblclickBlock($event)"
+      ></app-content-block>
+    </ul>
+  </div>
+</div>

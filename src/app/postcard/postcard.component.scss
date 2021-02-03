@@ -1,0 +1,30 @@
+.postcard-new {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  border: 1px solid gray;
+  box-shadow: 5px 5px 5px gray;
+  display: inline-block;
+  text-align: center;
+  line-height: 230px;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  margin: 10px;
+
+  .mat-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: gray;
+  }
+
+  &:hover {
+    border: 1px solid black;
+
+    .mat-icon,
+    p {
+      color: black;
+    }
+  }
+}

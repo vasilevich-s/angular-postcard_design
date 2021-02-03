@@ -1,0 +1,40 @@
+<div class="backdrop" (click)="hide.emit(); backStep()"></div>
+
+<div class="postcard-options" [@newCardOptions]="newCardOptionsState">
+  <h3>Step 1. Select postcard sizes</h3>
+  <div class="input-wrap">
+    <select
+      name="sizes"
+      [disabled]="nextStepVisible"
+      (change)="sizeValue = select.value"
+      #select
+    >
+      <option *ngFor="let size of sizes">
+        {{ size }}
+      </option>
+    </select>
+  </div>
+  <button mat-raised-button (click)="nextStep()" [disabled]="nextStepVisible">
+    Next
+  </button>
+</div>
+
+<div class="postcard-options" @newCardOptions *ngIf="nextStepVisible">
+  <h3>Step 2. Select background</h3>
+  <div class="postcard-background">
+    <div
+      class="image_wrap"
+      *ngFor="let bg of backgroundImages"
+      [ngStyle]="{
+        outline: backgroundImage === bg ? '1px solid gray' : 'initial'
+      }"
+      (click)="backgroundImage = bg"
+    >
+      <img [src]="'/assets/borders/' + bg" alt="border" />
+    </div>
+  </div>
+  <div class="postcard-step-control">
+    <button mat-raised-button (click)="backStep()">Back</button>
+    <button mat-raised-button (click)="createHandler()">Create</button>
+  </div>
+</div>

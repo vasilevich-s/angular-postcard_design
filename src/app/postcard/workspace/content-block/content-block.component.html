@@ -1,0 +1,13 @@
+<li class="workspace-content_list-item" [class.active]="select" appEdit>
+  <div
+    [ngStyle]="block.styles"
+    contenteditable
+    (click)="$event.stopPropagation()"
+    (blur)="blurHandler()"
+    #blockRef
+  >
+    {{ block.text }}
+  </div>
+
+  <div class="overlay" (dblclick)="dblClickHandler()" *ngIf="!select"></div>
+</li>

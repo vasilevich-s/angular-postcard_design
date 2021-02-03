@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="load-users-block" *ngIf="!loadControl; else data">
+    <p>Загрузить данные пользователей:</p>
+    <button mat-raised-button color="primary" (click)="loadUsers('short')">
+      32 пользователя
+    </button>
+    <button mat-raised-button color="accent" (click)="loadUsers('long')">
+      Все пользователи
+    </button>
+  </div>
+
+  <ng-template #data>
+    <ng-container *ngIf="!loading; else loader">
+      <div class="filter-block">
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="router.navigate(['/users'])"
+        >
+          <mat-icon>reply</mat-icon>
+        </button>
+
+        <input
+          type="text"
+          [(ngModel)]="inputValue"
+          (input)="filterHandler()"
+          placeholder="Find User"
+          class="ml-1"
+        />
+      </div>
+      <table mat-table [dataSource]="getUsersOnPage" class="mat-elevation-z8">
+        <ng-container
+          *ngFor="let item of displayedColumns"
+          [matColumnDef]="item"
+        >
+          <th mat-header-cell *matHeaderCellDef (click)="sortByColName(item)">
+            {{ item }}
+            <small>{{
+              item === sortColumnName ? "(" + sortArrow + ")" : null
+            }}</small>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element[item] }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          class="element-row"
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          [tooltip_d]="row.address"
+        ></tr>
+      </table>
+      <div class="paginations">
+        <ul>
+          <li *ngFor="let item of countPages">
+            <a
+              routerLink="/users"
+              [queryParams]="{ isList: pageNav.isList, page: item }"
+              [style.backgroundColor]="
+                (item - 1) * pageNav.offset === pageNav.skip
+                  ? 'orange'
+                  : 'inherit'
+              "
+              >{{ item }}</a
+            >
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+    <ng-template #loader>
+      <mat-spinner diameter="50"></mat-spinner>
+    </ng-template>
+  </ng-template>
+</div>

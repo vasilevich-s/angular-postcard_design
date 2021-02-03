@@ -1,0 +1,40 @@
+<div class="workspace-control">
+  <mat-icon title="Add heading" (click)="add('head')">title</mat-icon>
+  <mat-icon title="Add text" (click)="add('text')">text_fields</mat-icon>
+  <ng-container *ngFor="let icon of icons">
+    <label
+      *ngIf="icon.styleName === 'color'; else otherIcon"
+      (input)="change.emit({ style: icon.styleName, value: color_text.value })"
+    >
+      <mat-icon title="Text color" [ngStyle]="{ color: colorText }">{{
+        icon.nameIcon
+      }}</mat-icon>
+      <input type="color" #color_text />
+    </label>
+
+    <ng-template #otherIcon>
+      <mat-icon
+        [title]="icon.title"
+        [class.selected]="icon.selected"
+        (click)="change.emit({ style: icon.styleName, value: icon.title })"
+        >{{ icon.nameIcon }}</mat-icon
+      >
+    </ng-template>
+  </ng-container>
+
+  <label
+    (input)="postcardService.setStylesPostcard({ backgroundColor: fill.value })"
+  >
+    <mat-icon
+      title="Background"
+      [ngStyle]="{
+        color: postcardService.stylesPostcard.backgroundColor
+      }"
+      >format_color_fill</mat-icon
+    ><input
+      type="color"
+      #fill
+      [value]="postcardService.stylesPostcard.backgroundColor"
+    />
+  </label>
+</div>
